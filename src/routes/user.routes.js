@@ -2,11 +2,11 @@ import Router from "express";
 import express from "express";
 const userRouter = express.Router();
 
-userRouter.get('/user',(req,res)=>{
+userRouter.get('/',(req,res)=>{
   res.send('Página do usuário')
 });
 
-userRouter.post('/user',(req,res)=>{
+userRouter.post('/',(req,res)=>{
     const {name,email,password} = req.body;
     res.json({name});
   })
