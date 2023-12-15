@@ -1,9 +1,11 @@
-import Router from "express";
 import express from "express";
 const userRouter = express.Router();
 
+//Rota da página principal
+var categorias = ["celulares","televisores"];
+
 userRouter.get('/',(req,res)=>{
-  res.send('Página do usuário')
+  res.render('home.ejs');
 });
 
 userRouter.post('/',(req,res)=>{
