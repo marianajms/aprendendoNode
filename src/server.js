@@ -1,20 +1,26 @@
 import express from 'express';
-import userRouter from './routes/user.routes.js';
-import blogRouter from './routes/blog.routes.js';
+import bodyParser from 'body-parser';
 
 const app = express();
 const porta = 3333;
 
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json()); //para poder ler json
-app.use('/user', userRouter); // Uso do roteador usersRouter como middleware
-app.use('/blog',blogRouter);
 app.use(express.static('public'))
 
 app.set('view engine', 'ejs');
 
+app.get('/', (req,res)=>{
+  res.render('index.ejs')
+})
 
-app.get('/',(req,res)=>{
-  res.render('home.ejs');
+app.get('/perguntar',(req,res)=>{
+  res.render('perguntar.ejs');
+})
+
+app.post('/submit', (req,res)=>{
+  var titulo = req.body.titulo;
+  res.send('Formulário Recebido'+titulo);
 })
 
 app.listen(porta, (error) => {
