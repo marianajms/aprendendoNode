@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-//criação de um banco de dados
+//1- CREATE DATABASE guiaDePerguntas
 const connection = new Sequelize('guiaDePerguntas','root','oliviaguta',{
     host:'localhost',
     dialect:'mysql'
