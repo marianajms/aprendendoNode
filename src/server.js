@@ -1,7 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import connection from '../database/database.js';
-import Pergunta from '../database/Pergunta.js'; //criar tabela
+import Pergunta from '../database/Pergunta.js'; //criar tabela de perguntas
+import Resposta from '../database/Resposta.js'; //criar tabela de respostas
 
 //Configurações do EJS e Express
 const app = express();
@@ -44,7 +45,7 @@ app.get('/perguntar',(req,res)=>{
   res.render('perguntar.ejs');
 })
 
-//6 - SELECT * FROM perguntas WHERE id(campo):id(variável da rota) e envie para a página perguntaID
+//6 - SELECT * FROM perguntas WHERE id(campo) = id(variável da rota) e envie para a página perguntaID
 app.get('/pergunta/:id', (req, res) => {
   const id = req.params.id;
   Pergunta.findOne({ where: { id: id }})
@@ -69,4 +70,12 @@ app.post('/submit', (req,res)=>{
   
 })
 
+/* app.post('/pergunta/:id',(req,res)=>{
+  var textoResposta = req.body.textoResposta;
+  const IdPergunta = req.params.id;
+  Resposta.create({ 
+    textoResposta:textoResposta,
+    IdPergunta:IdPergunta
+  }).then(()=>res.redirect('/'));
+}) */
 

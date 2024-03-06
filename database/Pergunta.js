@@ -15,7 +15,6 @@ const Pergunta = connection.define('perguntas',{
     }
 })
 
-Pergunta.sync({force:false})
-.then(()=> console.log('tabela criada'));
+Pergunta.sync({force:false}).then(()=> console.log('Tabela de Perguntas sincronizada'));
 
 export default Pergunta;
