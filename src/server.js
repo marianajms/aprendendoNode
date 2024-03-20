@@ -48,14 +48,23 @@ app.get('/perguntar',(req,res)=>{
 //6 - SELECT * FROM perguntas WHERE id(campo) = id(variável da rota) e envie para a página perguntaID
 app.get('/pergunta/:id', (req, res) => {
   const id = req.params.id;
+
   Pergunta.findOne({ where: { id: id }})
     .then(resultado => {
       if (resultado != undefined) {
-        res.render('perguntaID', { dados:resultado });
-      }else{
-        res.redirect('/');
-      }
-    })
+        Resposta.findAll({ where: { IdPergunta: id }, raw: true })
+        .then((respostas) => {
+          if (respostas != undefined) {
+            res.render('perguntaID', { dados: resultado,respostas: respostas });
+          } else {
+            res.render('perguntaID', { dados: resultado});
+            }
+          });
+        } else {
+          res.redirect('/');
+        }
+    });
+
 });
 
 
@@ -70,12 +79,14 @@ app.post('/submit', (req,res)=>{
   
 })
 
-/* app.post('/pergunta/:id',(req,res)=>{
+
+app.post('/submitResposta',(req,res)=>{
   var textoResposta = req.body.textoResposta;
-  const IdPergunta = req.params.id;
+  const IdPergunta = req.body.id;
+  console.log(textoResposta,IdPergunta)
   Resposta.create({ 
     textoResposta:textoResposta,
     IdPergunta:IdPergunta
-  }).then(()=>res.redirect('/'));
-}) */
+  }).then(()=>res.redirect('/pergunta/'+IdPergunta));
+})
 

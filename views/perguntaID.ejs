@@ -3,26 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%-dados.titulo%></title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <header><%- include ('partials/header.ejs') %></header>
     
-    <div class="container mt-5">
+    <div class="container mt-5" style="max-width: 70%;">
         <div class="card">
-            <div class="card-footer"><%-dados.titulo%></div>
-            <div class="card-body"><%-dados.descricao%></div>
-            <div class="card-footer">
-                <button class="btn btn-success"><%-dados.id%></button>
-            </div>
-
+            <div class="card-footer display-4" style="font-size: 1.2em;">
+                <span><strong><%-dados.titulo%></strong></span> <hr>
+                <span style="font-size: 1em;"><%-dados.descricao%></span>
+        
+            </div>  
         </div>
+
+        <br>
+    <div class="card">
+        <div class="card-footer">
+            <%respostas.forEach((resposta)=>{%>
+                <span><strong>Resposta</strong></span>
+                <div class="card-body">
+                    <%-resposta.textoResposta%>
+                </div>
+
+            <%})%>
+
+                <form action="/submitResposta" method="post">
+                    <textarea name="textoResposta" cols="10" rows="5" placeholder="Adicione a sua resposta a pergunta acima" class="form-control mt-2"></textarea>
+                    <input type="hidden" value="<%= dados.id%>" name="id">
+                    <button type="submit" class="btn btn-primary mt-2">Responder</button>
+                </form>
+        </div>
+    </div>
+
+
+
 
 
     </div>
-
 
  
 
